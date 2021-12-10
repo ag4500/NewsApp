@@ -1,68 +1,47 @@
 import { useSelector } from "react-redux";
+import Card from "react-bootstrap/Card";
 
 const Description = (props) => {
   const articel = useSelector((state) => state.news);
   const { articels, searchNews } = articel;
-
   const index = props.match.params.index;
   const publishedAt = props.match.params.publishedAt;
 
-  return articels.length ? (
+  return articels.length>0 ? (
     <>
+      <h2 className="text-danger fs-1 text text-center">Latest News</h2>
       {publishedAt === "undefined" && index ? (
         <>
-          <h2 className="text-danger my-4 fs-1 text text-center">
-            Latest News
-          </h2>
-          <div
-            style={{
-              width: "40%",
-              marginLeft: "350px",
-              padding: "12px",
-              border: "3px groove red",
-            }}
+          <Card
+            className="text-center"
+            style={{ width: "60rem", marginLeft: "160px" }}
           >
-            <h4>{searchNews[index].title}...</h4>
-            <span
-              style={{
-                color: "blue",
-                textAlign: "center",
-                padding: "12px",
-              }}
-            >
-              {searchNews[index].description}
-            </span>
-          </div>
+            <Card.Img variant="top" src={searchNews[index].urlToImage} />
+            <Card.Title>{searchNews[index].title}</Card.Title>
+            <Card.Body>
+              <Card.Text>{searchNews[index].description}</Card.Text>
+            </Card.Body>
+          </Card>
         </>
       ) : (
         <>
-          <h2 className="text-danger my-4 fs-1 text text-center">
-            Latest News
-          </h2>
-          <div
-            style={{
-              width: "40%",
-              marginLeft: "350px",
-              padding: "12px",
-              border: "3px groove red",
-            }}
+          <Card
+            className="text-center"
+            style={{ width: "60rem", marginLeft: "160px" }}
           >
-            <h4>{articels[index].title}...</h4>
-            <span
-              style={{
-                color: "blue",
-                textAlign: "center",
-                padding: "12px",
-              }}
-            >
-              {articels[index].description}
-            </span>
-          </div>
+            <Card.Img variant="top" src={articels[index].urlToImage} />
+            <Card.Title>{articels[index].title}</Card.Title>
+            <Card.Body>
+              <Card.Text>{articels[index].description}</Card.Text>
+            </Card.Body>
+          </Card>
         </>
       )}
     </>
   ) : (
-    "Please Go on News DashBoard To display a news..."
+    <div className="text-danger fs-3 text text-center">
+      Please Go on New HomeTo Display a Brief news...
+    </div>
   );
 };
 export default Description;

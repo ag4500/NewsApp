@@ -1,9 +1,13 @@
-import {SHOW_NEWS,ONCHANGE_SEARCH,GET_SEARCH_NEWS} from '../actions'
-
+import {SHOW_NEWS,ONCHANGE_SEARCH,GET_SEARCH_NEWS,SET_LOCALSTORAGE} from '../actions'
+const getBookmarkLocalStorage=()=>{
+  let getBookmark=JSON.parse(localStorage.getItem('bookmark')||'[]')
+  return getBookmark;
+}
 const initialState = {
    articels:[],
    setSearch:"",
-   searchNews:[]
+   searchNews:[],
+   getBookmark:getBookmarkLocalStorage()
   };
   
 export default function news(state = initialState, action) {
@@ -23,6 +27,11 @@ export default function news(state = initialState, action) {
         ...state,
         searchNews:action.payload
       }
+      case SET_LOCALSTORAGE:
+        return{
+          ...state,
+          getBookmark:action.payload
+        }
       default:
         return state;
     }
